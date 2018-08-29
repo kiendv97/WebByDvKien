@@ -10,6 +10,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var cartRouter = require('./router/cart');
 var productModel = require('./models/product');
 var userModel = require('./models/user');
 var bodyParser = require('body-parser')
@@ -63,7 +64,7 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
+app.use('/cart',cartRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

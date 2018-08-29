@@ -433,7 +433,7 @@
 									<td class="column-3">
 										<%= product.item.price %>
 									</td>
-									<form action="/update" method="POST">
+									<form action="/cart/update" method="POST">
 										<td class="column-4">
 											<div class="flex-w bo5 of-hidden w-size17">
 												<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
@@ -441,13 +441,13 @@
 												</button>
 
 												<input class="size8 m-text18 t-center num-product" type="number" name="itemQty" value="<%= product.qty %>">
-												
+
 												<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
 													<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
 												</button>
 												<input type="hidden" name="productId" value="<%= product.item._id %>">
 											</div>
-											<button onclick="window.location.href ='/delete/<%= product.item._id  %>'" class=" mt-3 btn-num-product-up color1 flex-c-m size7 bg8 eff2">
+											<button onclick="window.location.href ='/cart/delete/<%= product.item._id  %>'" class=" mt-3 btn-num-product-up color1 flex-c-m size7 bg8 eff2">
 												<i class="fs-12 fa fa-remove bg2" aria-hidden="true"></i>
 											</button>
 										</td>
@@ -497,11 +497,11 @@
 				<!--  -->
 				<div class="flex-w flex-sb-m p-b-12">
 					<span class="s-text18 w-size19 w-full-sm">
-						Subtotal:
+						Subtotal: Subtotal:
 					</span>
 
 					<span class="m-text21 w-size20 w-full-sm">
-						$39.00
+						Free Shipping
 					</span>
 				</div>
 
@@ -551,13 +551,17 @@
 					</span>
 
 					<span class="m-text21 w-size20 w-full-sm">
-						$39.00
+						<% if(session.cart){ %>
+							<%= session.cart.totalPrice %> $
+								<%} else { %>
+									0 $
+									<% } %>
 					</span>
 				</div>
 
 				<div class="size15 trans-0-4">
 					<!-- Button -->
-					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+					<button onclick="window.location.href='/checkout'" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
 						Proceed to Checkout
 					</button>
 				</div>
