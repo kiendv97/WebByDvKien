@@ -9,7 +9,7 @@ var userModel = require('../models/user');
 router.use(csrf());
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Home  ' });
+  res.render('index', { title: 'Home  ', message : req.flash('message') });
 });
 
 router.get('/index.html', function (req, res, next) {

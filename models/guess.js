@@ -1,4 +1,4 @@
-var mongoose = require('mongoose'),
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var guess = { 
@@ -16,4 +16,4 @@ var guess = {
     }
 };
 
-module.exports = mongoose.model('guess',new Schema(guess))
+module.exports = mongoose.model('guess',new Schema(guess));

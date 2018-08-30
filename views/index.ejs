@@ -67,7 +67,13 @@
 					</div>
 				</div>
 			</div>
-
+			
+			<% if(message.length > 0){ %>
+				<div class="alert alert-success align-content-lg-center">
+					<%= message %>
+					
+				</div>
+				<% } %>
 			<div class="wrap_header">
 				<!-- Logo -->
 				<a href="index.html" class="logo">
