@@ -57,12 +57,21 @@ router.post('/checkout', (req, res, next) => {
     if (!req.session.cart) {
        return  res.redirect('/product.html');
     }
+    var items = req.session.cart.items;
+    
+    
     var product = [];
-    for (const id in req.session.cart.items) {
+    for (const id in items) {
         productModel.findById(id, (err, pro) => {
             if (!err) {
-                product.push(pro);
-                console.log(id);
+                
+                  console.log(items.qty);
+               for (let index = 0; index < items[id].qty; index++) {
+                   product.push(pro)
+                   console.log('hello');
+                   
+               }
+               
                 
             }
         })

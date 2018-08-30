@@ -13,7 +13,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/index.html', function (req, res, next) {
-  res.render('index', { title: 'Home  ' });
+  res.render('index', { title: 'Home', message: req.flash('message') });
 });
 
 /* GET about page. */
