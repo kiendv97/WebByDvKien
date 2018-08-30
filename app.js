@@ -58,8 +58,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function (req, res, next) {
+  res.locals.admin = req.admin || null;
   res.locals.user = req.user || null;
   res.locals.session = req.session;
+  res.locals.success_msg = req.flash('message') || null;
   next();
 })
 

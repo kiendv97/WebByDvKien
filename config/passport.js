@@ -1,7 +1,7 @@
 var passport = require('passport');
 var LocalStratery = require('passport-local').Strategy;
 var User = require('../models/user');
-
+var Admin = require('../models/admin');
 
 
 passport.serializeUser(function (user, done) {
@@ -95,6 +95,42 @@ passport.use('local.login', new LocalStratery({
 
             else {
                 return done(null, false, req.flash('message', 'User  incorrect'))
+            }
+
+        })
+    }
+));
+
+passport.use('local.login2', new LocalStratery({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+},
+    function (req, email, password, done) {
+        req.checkBody('email', 'Invalid email').notEmpty().isEmail();
+        req.checkBody('password', 'Invalid password').notEmpty().isLength({ min: 4 });
+        console.log('helo');
+        if (req.validationErrors()) {
+            var error  = req.validationErrors();
+
+            var message = [];
+           Array.prototype.forEach.call(error,function(me){
+               message.push(me.msg);
+           })
+
+             return done(null, false, req.flash('message', message))
+        }
+        Admin.findOne({ email: email }, function (err, admin) {
+            if (admin) {
+                if (password !== user.password) {
+
+                    return done(null, false, req.flash('message', 'Password incorrect'))
+                }
+                return done(null, admin);
+            }
+
+            else {
+                return done(null, false, req.flash('message', 'Admin  incorrect'))
             }
 
         })
