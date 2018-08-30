@@ -47,13 +47,8 @@ module.exports = function Cart(oldCart) {
                     i++;
                     this.items[item].qty = map[k].qty;
                     break;
-
                 }
-
-
             }
-
-
         }
 
 

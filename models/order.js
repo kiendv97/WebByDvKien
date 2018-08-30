@@ -6,6 +6,11 @@ var order =  {
         type: Schema.Types.ObjectId,
         ref: 'product'
     }],
+    totalPrice: {
+        type: Number,
+        default: 0
+    },
+    
     user : {
         type: Schema.Types.ObjectId,
         ref: 'user'

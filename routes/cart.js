@@ -55,20 +55,18 @@ router.post('/update', function (req, res, next) {
 // Check out 
 router.post('/checkout', (req, res, next) => {
     if (!req.session.cart) {
-        res.redirect('/product.html');
+       return  res.redirect('/product.html');
     }
     var product = [];
     for (const id in req.session.cart.items) {
         productModel.findById(id, (err, pro) => {
             if (!err) {
                 product.push(pro);
+                console.log(id);
+                
             }
         })
     };
-
-
-
-
     let guess = {
         name: req.body.name || 'NoName',
         address: req.body.address || 'NoAddress',
