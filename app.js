@@ -15,11 +15,11 @@ var adminRouter = require('./routes/admin/admin');
 var productModel = require('./models/product');
 var userModel = require('./models/user');
 var bodyParser = require('body-parser')
+var csrf = require('csurf');
 var flash = require('connect-flash');
 var validator = require('express-validator');
 var app = express();
-
-
+app.use(csrf({cookie: true}));
 productModel
 userModel
 require('./config/passport');
@@ -67,8 +67,8 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/cart',cartRouter);
-app.use('/admin',adminRouter);
+app.use('/cart', cartRouter);
+app.use('/admin', adminRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

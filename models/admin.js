@@ -4,6 +4,9 @@ var Schema = mongoose.Schema;
  
 
 var newAdmin = new Schema({
+    fullname : {
+        type: String
+    },
     email: {
         type: String,
         required: true
@@ -12,7 +15,7 @@ var newAdmin = new Schema({
         type: String,
         required: true
     }, 
-    image: {
+    img: {
         type: String
     }
 },{
