@@ -6,10 +6,9 @@ var mongoose = require('mongoose');
 var productModel = require('../models/product');
 var userModel = require('../models/user');
 
-
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Home  ', message : req.flash('message') });
+  res.render('index', { title: 'Home  ', message: req.flash('message') });
 });
 
 router.get('/index.html', function (req, res, next) {
@@ -28,20 +27,20 @@ router.get('/blog-detail.html', function (req, res, next) {
   res.render('blog-detail', { title: ' Blog-Detail' });
 
 })
- 
+
 router.get('/cart.html', function (req, res, next) {
   console.log(req.body.numproduct2);
-  
+
   if (!req.session.cart) {
-    res.render('cart', { title: ' Cart', products: null, csrfToken : req.csrfToken() });
+    res.render('cart', { title: ' Cart', products: null, csrfToken: req.csrfToken() });
   } else {
-    res.render('cart', { title: ' Cart', csrfToken : req.csrfToken(), products: new Cart(req.session.cart ? req.session.cart : {}).generateArray() });
+    res.render('cart', { title: ' Cart', csrfToken: req.csrfToken(), products: new Cart(req.session.cart ? req.session.cart : {}).generateArray() });
   }
 
 
 
 
-}).use(csrf());
+});
 
 
 router.get('/contact.html', function (req, res, next) {

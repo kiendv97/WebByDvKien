@@ -19,7 +19,7 @@ var csrf = require('csurf');
 var flash = require('connect-flash');
 var validator = require('express-validator');
 var app = express();
-app.use(csrf({cookie: true}));
+
 productModel
 userModel
 require('./config/passport');
@@ -44,6 +44,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(csrf({cookie: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
@@ -61,7 +62,7 @@ app.use(function (req, res, next) {
   res.locals.admin = req.admin || null;
   res.locals.user = req.user || null;
   res.locals.session = req.session;
-  res.locals.success_msg = req.flash('message') || null;
+  res.locals.success_msg = req.flash('success') || null;
   next();
 })
 

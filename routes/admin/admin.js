@@ -39,18 +39,12 @@ router.get('/product/them-product.html',(req,res,next)=>{
 router.get('/cart/danh-sach.html',(req,res,next)=>{
     res.render('admin/cart/danhsach',{data : [12]})
 });
-router.post('/getuser',checkAdmin, function (req, res) {
+router.get('/getuser', function (req, res) {
     res.json(req.admin);
 });
 
 
-function checkAdmin(req,res,next){
-    if(req.isAuthenticated()){
-        next();
-    } else {
-        next();
-    }
-}
+
 
 
 module.exports = router;    

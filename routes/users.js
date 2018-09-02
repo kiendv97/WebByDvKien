@@ -5,7 +5,7 @@ var csrf = require('csurf');
 var { isLogIn } = require('../config/authentication');
 
 /* GET users listing. */
-router.get('/signup', csrf(), function (req, res, next) {
+router.get('/signup', function (req, res, next) {
   res.render('signup', { message: req.flash('message'), csrfToken: req.csrfToken() })
 });
 
@@ -15,7 +15,7 @@ router.post('/signup', passport.authenticate('local.signup', {
   failureFlash: true
 }))
 
-router.get('/login', csrf(), function (req, res, next) {
+router.get('/login', function (req, res, next) {
   if (req.user) {
     res.redirect('/');
   }

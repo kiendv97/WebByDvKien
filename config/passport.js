@@ -122,7 +122,7 @@ passport.use('local.login2', new LocalStratery({
         }
         Admin.findOne({ email: email }, function (err, admin) {
             if (admin) {
-                if (password !== user.password) {
+                if (password !== admin.password) {
 
                     return done(null, false, req.flash('message', 'Password incorrect'))
                 }

@@ -39,14 +39,15 @@
         <!-- modal end -->
         <script type="text/javascript">
             $(document).ready(function(){
-             
-               $.post(
+            
+
+               $.get(
                     'http://localhost:3000/admin/getuser',
                     {
 
                     },function(data){
-                      $('img.avatar').attr('src', 'upload/' + data.img);
-                      $('.name').html(data.fullname);
+                      $('img.avatar').attr('src', 'upload/' + admin.img);
+                      $('.name').html(admin.fullname);
                     }
                 )
             });
