@@ -6,9 +6,9 @@ const Cate = require('../../models/cate');
 var { isLogInUser, isLoginAdmin } = require('../../config/authentication');
 var csrf = require('csurf');
 
-router.use(csrf());
+router.use(csrf({cookie:false}));
 
-router.get('/', isLoginAdmin, (req, res, next) => {
+router.get('/', (req, res, next) => {
     res.render('admin/main/index', { success_msg: req.flash('success') });;
 });
 
@@ -55,9 +55,11 @@ router.get('/product/danh-sach.html', (req, res, next) => {
 });
 
 router.get('/product/them-product.html', (req, res, next) => {
+    console.log(req.cookies);
+    
     Cate.find({})
         .then(cates => {
-            res.render('admin/product/them', { errors: req.flash('error'), csrfToken: req.csrfToken() , success_msg: req.flash('success'), cate: cates});
+            res.render('admin/product/them', { errors: req.flash('error'), csrfToken: req.csrfToken()  , success_msg: req.flash('success'), cate: cates});
 
         })
 });
