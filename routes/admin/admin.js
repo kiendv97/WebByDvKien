@@ -6,7 +6,6 @@ const Cate = require('../../models/cate');
 var { isLogInUser, isLoginAdmin } = require('../../config/authentication');
 var csrf = require('csurf');
 
-router.use(csrf({cookie:false}));
 
 router.get('/', (req, res, next) => {
     res.render('admin/main/index', { success_msg: req.flash('success') });;
@@ -55,7 +54,6 @@ router.get('/product/danh-sach.html', (req, res, next) => {
 });
 
 router.get('/product/them-product.html', (req, res, next) => {
-    console.log(req.cookies);
     
     Cate.find({})
         .then(cates => {

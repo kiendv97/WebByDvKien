@@ -3,7 +3,6 @@ var router = express.Router();
 var passport = require('passport');
 var csrf = require('csurf');
 var { isLogIn } = require('../config/authentication');
-router.use(csrf());
 /* GET users listing. */
 router.get('/signup', function (req, res, next) {
   res.render('signup', { message: req.flash('message'), csrfToken: req.csrfToken() })

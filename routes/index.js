@@ -5,7 +5,6 @@ var csrf = require('csurf');
 var mongoose = require('mongoose');
 var productModel = require('../models/product');
 var userModel = require('../models/user');
-router.use(csrf());
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Home  ', message: req.flash('message') });

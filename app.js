@@ -8,6 +8,7 @@ var logger = require('morgan');
 var key = require('./config/key');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var csrf = require('csurf');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var cartRouter = require('./routes/cart');
@@ -55,6 +56,7 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(csrf());
 
 app.use(function (req, res, next) {
   res.locals.admin = req.admin || null;
@@ -62,7 +64,6 @@ app.use(function (req, res, next) {
   res.locals.session = req.session;
   next();
 })
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/cart', cartRouter);
