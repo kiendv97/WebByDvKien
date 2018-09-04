@@ -60,7 +60,6 @@ app.use(function (req, res, next) {
   res.locals.admin = req.admin || null;
   res.locals.user = req.user || null;
   res.locals.session = req.session;
-  
   next();
 })
 
