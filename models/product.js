@@ -6,10 +6,7 @@ var product = new Schema({
         type: String,
         required: true
     },
-    category: {
-        type: String,
-        default: 'new'
-    },
+    
     price: {
         type: Number,
         default: Number(0)
@@ -18,15 +15,16 @@ var product = new Schema({
         type: String
 
     },
-    images: [{
+    img: [{
         type: String
     }],
-    size : {
-        type : String
-        
-    },
+    
     des : {
          type: String
+    },
+    cateId : {
+        type: Schema.Types.ObjectId,
+        ref: 'cate'
     }
 
 });

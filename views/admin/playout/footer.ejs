@@ -46,8 +46,8 @@
                     {
 
                     },function(data){
-                      $('img.avatar').attr('src', 'upload/' + admin.img);
-                      $('.name').html(admin.fullname);
+                      $('img.avatar').attr('src', 'upload/' + data.img);
+                      $('.name').html(data.fullname);
                     }
                 )
             });

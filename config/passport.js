@@ -109,7 +109,6 @@ passport.use('local.login2', new LocalStratery({
     function (req, email, password, done) {
         req.checkBody('email', 'Invalid email').notEmpty().isEmail();
         req.checkBody('password', 'Invalid password').notEmpty().isLength({ min: 4 });
-        console.log('helo');
         if (req.validationErrors()) {
             var error  = req.validationErrors();
 
@@ -120,13 +119,13 @@ passport.use('local.login2', new LocalStratery({
 
              return done(null, false, req.flash('message', message))
         }
-        Admin.findOne({ email: email }, function (err, admin) {
-            if (admin) {
-                if (password !== admin.password) {
+        User.findOne({ email: email }, function (err, user) {
+            if (user) {
+                if (password !== user.password) {
 
                     return done(null, false, req.flash('message', 'Password incorrect'))
                 }
-                return done(null, admin);
+                return done(null,user)
             }
 
             else {

@@ -37,7 +37,7 @@
                                 <% if(success_msg != ''){ %> 
                                     <div class="alert alert-success"><%= success_msg%></div>
                                <% } %>
-                                <% if(errors) { %>
+                                <% if(errors.length > 0) { %>
                                 <div class="alert alert-danger">
                                     <% errors.forEach(function(e){ %>
 
@@ -46,13 +46,14 @@
 
                                 </div>
                                 <% };%>
-                                <form action ="" method="post" enctype="multipart/form-data">
+                                <form action ="/admin/product/them-product.html" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="csrf" value="<%= csrfToken %>">
                                     <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
                                         <div class="form-group">
                                             <label class="form-label" for="field-120334">Name</label>
                                             <span class="desc"></span>
                                             <div class="controls">
-                                                <input type="text" id="name" value="" class="form-control" name="name">
+                                                <input type="text" id="name" value="" class="form-control" name="title" required>
                                             </div>
                                         </div>
                                     </div>
@@ -61,7 +62,7 @@
                                             <label class="form-label" for="field-120334">Hình</label>
                                             <span class="desc"></span>
                                             <div class="controls">
-                                                <input type="file" id="hinh" value="" required="required" class="form-control" name="hinh">
+                                                <input type="file" id="hinh" value=""  class="form-control" name="hinh">
                                             </div>
                                         </div>
                                     </div>
@@ -70,7 +71,7 @@
                                             <label class="form-label" for="field-120334">Giá</label>
                                             <span class="desc"></span>
                                             <div class="controls">
-                                                <input type="number" id="gia" value="0" min="0" class="form-control" name="gia">
+                                                <input type="number" id="gia" value="0" min="0" class="form-control" name="price" required>
                                             </div>
                                         </div>
                                     </div>
@@ -80,7 +81,7 @@
                                             <label class="form-label" for="field-120334">Thể Loại</label>
                                             <span class="desc"></span>
                                             <div class="controls">
-                                                <select class="form-control" id="cate" name="cate">
+                                                <select class="form-control" id="cate" name="cate" required>
                                                     <% cate.forEach(function(item){ %> 
                                                         <option value="<%= item._id%>"><%= item.name%></option>
                                                     <%})%>

@@ -42,22 +42,21 @@
                                         <table id="example" class="display table table-hover table-condensed">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
+                                                    <th>Ma Sp</th>
                                                     <th>Name</th>
                                                     <th>Hình</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <% var id = 0 %>
-                                                <% product.forEach(function(item){ id ++ %>
+                                                <% product.forEach(function(item){ %>
                                                 <tr>
-                                                    <td><%= id%></td>
-                                                    <td><%= item.name%></td>
+                                                    <td><%= item._id.toString().substring(item._id.toString().length - 4,item._id.toString().length) %></td>
+                                                    <td><%= item.title%></td>
                                                     <td> <img src="upload/<%= item.img%>" width="100px" alt=""></td>
 
                                                     <td>
-                                                        <a href="/admin/product/<%= item._id %>/xoa-product.html">Xoá</a> | 
+                                                        <a onclick="return check()" href="/admin/product/<%= item._id %>/xoa-product.html">Xoá</a> | 
                                                         <a href="/admin/product/<%= item._id %>/sua-product.html">Sửa</a>
                                                     </td>
                                                 </tr>
@@ -82,3 +81,11 @@
             <script src="TT_Admin/assets/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
             <script src="TT_Admin/assets/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
             <script src="TT_Admin/assets/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+            <script>
+                function check(){
+                    if(window.confirm('Are you sure do that? ')){
+                        return true;
+                    }
+                    return false;
+                }
+            </script>

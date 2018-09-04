@@ -37,7 +37,7 @@
                                 <% if(success_msg != ''){ %> 
                                     <div class="alert alert-success"><%= success_msg%></div>
                                <% } %>
-                                <% if(errors) { %>
+                                <% if(errors.length > 0) { %>
                                 <div class="alert alert-danger">
                                     <% errors.forEach(function(e){ %>
 
@@ -52,7 +52,7 @@
                                             <label class="form-label" for="field-120334">Name</label>
                                             <span class="desc"></span>
                                             <div class="controls">
-                                                <input type="text" id="name" value="<%= product.name%>" class="form-control" name="name">
+                                                <input type="text" id="name" value="<%= product.title%>" class="form-control" name="name">
                                             </div>
                                         </div>
                                     </div>

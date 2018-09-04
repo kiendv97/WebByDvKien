@@ -20,7 +20,11 @@
      },
      address : {
           type : String
+     },
+     group: {
+         type: String
      }
  });
+ 
 
  module.exports = mongoose.model('user',user);
