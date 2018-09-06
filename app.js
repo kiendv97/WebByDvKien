@@ -18,6 +18,17 @@ var userModel = require('./models/user');
 var bodyParser = require('body-parser')
 var flash = require('connect-flash');
 var validator = require('express-validator');
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, 'upload');
+    },
+    filename: function(req,file , cb){
+        cb(null,  Date.now() + '-' + file.originalname);
+    }
+})
+var upload = multer({storage: storage});
 var app = express();
 
 productModel
@@ -45,6 +56,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.static(path.join(__dirname, '/')));
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: 'session',
@@ -56,14 +69,14 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(csrf());
 
 app.use(function (req, res, next) {
   res.locals.admin = req.admin || null;
   res.locals.user = req.user || null;
   res.locals.session = req.session;
   next();
-})
+});
+app.use(upload.any());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/cart', cartRouter);

@@ -7,6 +7,9 @@ const Guess = require('../models/guess');
 var mongoose = require('mongoose');
 var productModel = require('../models/product');
 var userModel = require('../models/user');
+var orderModel = require('../models/order');
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
 //Add to card 
 router.get('/addtocart/:id', function (req, res, next) {
     var id = req.params.id;
@@ -55,42 +58,53 @@ router.post('/update', function (req, res, next) {
 // Check out 
 router.post('/checkout', (req, res, next) => {
     if (!req.session.cart) {
-       return  res.redirect('/product.html');
-    }
-    var items = req.session.cart.items;
-    
-    
-    var product = [];
-    for (const id in items) {
-        productModel.findById(id, (err, pro) => {
-            if (!err) {
-                
-                  console.log(items.qty);
-               for (let index = 0; index < items[id].qty; index++) {
-                   product.push(pro)
-                   console.log('hello');
-                   
-               }
-               
-                
-            }
-        })
+        req.flash('error', 'dont success');
+        return res.redirect('/product.html');
     };
-    let guess = {
-        name: req.body.name || 'NoName',
-        address: req.body.address || 'NoAddress',
-        phone: req.body.phone || 00000
-    }
-    new Guess(guess)
-        .save()
-        .then(guess => {
 
-            new Order({ guess: guess, product: product, user: req.user })
-                .save();
-            req.session.cart = null;
-            req.flash('message', 'Youve successly  bought ');
-            res.redirect('/');
-        })
+    process();
+    async function process() {
+        var items = req.session.cart.items;
+
+
+        var product = [];
+
+        
+            for (const id in items) {
+              await  productModel.findById(id, (err, pro) => {
+                    if (!err) {
+
+                        for (let index = 0; index < items[id].qty; index++) {
+                            product.push(pro)
+                        }
+                    }
+                }
+                )
+            };
+            console.log(product);
+
+        
+        
+
+        var order = {
+            name: req.body.name || 'NoName',
+            address: req.body.address || 'NoAddress',
+            phone: req.body.phone || 00000,
+            totalPrice: req.session.cart.totalPrice,
+            product: product
+        }
+        new orderModel(order)
+            .save()
+            .then(order => {
+
+
+                req.session.cart = null;
+                req.flash('message', 'Youve successly  bought ');
+                res.redirect('/');
+            })
+    }
+
+
 
 
 

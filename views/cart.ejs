@@ -424,7 +424,7 @@
 								<tr class="table-row">
 									<td class="column-1">
 										<div class="cart-img-product b-rad-4 o-f-hidden">
-											<img src="images/item-05.jpg" alt="IMG-PRODUCT">
+											<img src="<%= product.item.img[0] %>" alt="IMG-PRODUCT" width="90" height="120">
 										</div>
 									</td>
 									<td class="column-2">
@@ -433,7 +433,7 @@
 									<td class="column-3">
 										<%= product.item.price %>
 									</td>
-									<form action="/cart/update" method="POST">
+									<form action="/cart/update"  method="POST">
 										<td class="column-4">
 											<div class="flex-w bo5 of-hidden w-size17">
 												<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
@@ -471,7 +471,7 @@
 
 					<div class="size12 trans-0-4 m-t-10 m-b-10 m-r-10">
 						<!-- Button -->
-						<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+						<button onclick="window.alert('Server is supporting')" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
 							Apply coupon
 						</button>
 					</div>
@@ -487,7 +487,7 @@
 				</form>
 
 			</div>
-			<form action="/cart/checkout" method="POST">
+			<form action="/cart/checkout"  method="POST">
 				<input type="hidden" name="_csrf" value="<%= csrfToken %>">
 				<div class="bo9 w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
 					<h5 class="m-text20 p-b-24">
@@ -524,44 +524,45 @@
 							<div class="rs2-select2 rs3-select2 rs4-select2 bo4 of-hidden w-size21 m-t-8 m-b-12">
 								<select class="selection-2" name="country">
 									<option>Select a country...</option>
-									<option>Viet Name</option>
+									<option>Viet Name</option>	
 									<option>China</option>
 									<option>Japan</option>
 								</select>
 							</div>
-<% if(user){ %>
-							<div class="size13 bo4 m-b-12">
-								<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="state" placeholder="State /  country">
-							</div>
-							<div class="size13 bo4 m-b-12">
-								<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="name" placeholder="Name" value="<%= user.fullname %>">
-							</div>
-							<div class="size13 bo4 m-b-12">
-								<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="address" placeholder="Address" value="<%= user.address %>">
-							</div>
-							<div class="size13 bo4 m-b-12">
-								<input class="sizefull s-text7 p-l-15 p-r-15" type="number" name="phone" placeholder="Phone" value="<%= user.phone %>">
-							</div>
+							<form action="/cart/checkout" method="post">
+								<% if(user){ %>
+									<div class="size13 bo4 m-b-12">
+										<input required class="sizefull s-text7 p-l-15 p-r-15" type="text" name="state" placeholder="State /  country">
+									</div>
+									<div class="size13 bo4 m-b-12">
+										<input required class="sizefull s-text7 p-l-15 p-r-15" type="text" name="name" placeholder="Name" value="<%= user.fullname %>">
+									</div>
+									<div class="size13 bo4 m-b-12">
+										<input required class="sizefull s-text7 p-l-15 p-r-15" type="text" name="address" placeholder="Address" value="<%= user.address %>">
+									</div>
+									<div class="size13 bo4 m-b-12">
+										<input required class="sizefull s-text7 p-l-15 p-r-15" type="number" name="phone" placeholder="Phone" value="<%= user.phone %>">
+									</div>
 
-<% } else { %>
-	<div class="size13 bo4 m-b-12">
-		<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="state" placeholder="State /  country" >
-	</div>
-	<div class="size13 bo4 m-b-12">
-		<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="name" placeholder="Name" required >
-	</div>
-	<div class="size13 bo4 m-b-12">
-		<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="address" placeholder="Address" required>
-	</div>
-	<div class="size13 bo4 m-b-12">
-		<input class="sizefull s-text7 p-l-15 p-r-15" type="number" name="phone" placeholder="Phone" required>
-	</div>
-	<% } %>
+									<% } else { %>
+										<div class="size13 bo4 m-b-12">
+											<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="state" placeholder="State /  country">
+										</div>
+										<div class="size13 bo4 m-b-12">
+											<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="name" placeholder="Name" required>
+										</div>
+										<div class="size13 bo4 m-b-12">
+											<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="address" placeholder="Address" required>
+										</div>
+										<div class="size13 bo4 m-b-12">
+											<input class="sizefull s-text7 p-l-15 p-r-15" type="number" name="phone" placeholder="Phone" required>
+										</div>
+										<% } %>
 
-							<div class="size14 trans-0-4 m-b-10">
-								<!-- Button -->
-							
-							</div>
+											<div class="size14 trans-0-4 m-b-10">
+												<!-- Button -->
+
+											</div>
 						</div>
 					</div>
 
@@ -582,14 +583,14 @@
 
 					<div class="size15 trans-0-4">
 						<!-- Button -->
-						<button onclick="window.location.href='/cart/checkout'" type="submit" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+						<button  onclick="return checkProduct" type="submit" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
 							Proceed to Checkout
 						</button>
 					</div>
-			</form>
-			<!-- Total -->
+					</form>
+					<!-- Total -->
 
-			</div>
+				</div>
 		</div>
 	</section>
 
@@ -802,7 +803,17 @@
 	</script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
-
+	<script>
+		function checkProduct(){
+			if(session.cart.totalQty){
+				return true;
+			}
+			else{
+				window.alert('Not found product in cart, please buy something');
+				return false;
+			} 
+		}
+	</script>
 </body>
 
 </html>

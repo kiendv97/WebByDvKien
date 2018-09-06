@@ -1,8 +1,18 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var order =  { 
-    product : [{
+var order = {
+
+    name: {
+        type: String
+    },
+    address: {
+        type: String
+    },
+    phone: {
+        type: String
+    },
+    product: [{
         type: Schema.Types.ObjectId,
         ref: 'product'
     }],
@@ -10,19 +20,17 @@ var order =  {
         type: Number,
         default: 0
     },
-    
-    user : {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
-    },
-    guess : {
-        type : Schema.Types.ObjectId,
-        ref : 'guess'
-    },
-    date : { 
-        type : String,
-        default : Date.now()
+    st: {
+        type: Number,
+        default: 0
+    }
+    ,
+
+
+    date: {
+        type: String,
+        default: Date.now()
     }
 };
 
-module.exports = mongoose.model('order',new Schema(order));
+module.exports = mongoose.model('order', new Schema(order));

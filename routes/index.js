@@ -27,7 +27,7 @@ router.get('/blog-detail.html', function (req, res, next) {
 
 })
 
-router.get('/cart.html', function (req, res, next) {
+router.get('/cart.html',csrf(), function (req, res, next) {
   console.log(req.body.numproduct2);
 
   if (!req.session.cart) {
@@ -60,7 +60,7 @@ router.get('/home-03.html', function (req, res, next) {
 router.get('/product.html', function (req, res, next) {
   productModel.find()
     .then(products => {
-      res.render('product', { title: ' Product', products: products });
+      res.render('product', { title: ' Product', products: products , message: req.flash('error')});
     })
 
 

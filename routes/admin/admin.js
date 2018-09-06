@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('../../config/passport');
 const Product = require('../../models/product');
+const Order = require('../../models/order');
 const Cate = require('../../models/cate');
 var { isLogInUser, isLoginAdmin } = require('../../config/authentication');
 var csrf = require('csurf');
@@ -11,7 +12,7 @@ router.get('/', (req, res, next) => {
     res.render('admin/main/index', { success_msg: req.flash('success') });;
 });
 
-router.get('/dang-nhap.html', (req, res, next) => {
+router.get('/dang-nhap.html',csrf(), (req, res, next) => {
     res.render('admin/login/index', { error: req.flash('message'), csrfToken: req.csrfToken() });
 })
 router.post('/login', passport.authenticate('local.login2', {
@@ -41,7 +42,7 @@ router.post('/cate/them-cate.html',(req,res,next)=>{
             res.redirect('/admin/cate/danh-sach.html');
         }); 
 });
-router.get('/cate/them-cate.html', (req, res, next) => {
+router.get('/cate/them-cate.html', csrf(),(req, res, next) => {
     res.render('admin/cate/them', { errors: req.flash('message'),csrfToken : req.csrfToken() , success_msg: req.flash('success')});
 });
 // Process all product 
@@ -53,7 +54,7 @@ router.get('/product/danh-sach.html', (req, res, next) => {
     })
 });
 
-router.get('/product/them-product.html', (req, res, next) => {
+router.get('/product/them-product.html' ,csrf(), (req, res, next) => {
     
     Cate.find({})
         .then(cates => {
@@ -62,10 +63,10 @@ router.get('/product/them-product.html', (req, res, next) => {
         })
 });
 router.post('/product/them-product.html', (req, res, next) => {
-    console.log(req.body);
+    console.log(req.files);
     var newProduct = {
         title: req.body.title,
-        cate: req.body.cateId,
+        cateId: req.body.cate,
         img: req.files[0].path,
         des: req.body.des,
         price: req.body.price
@@ -80,15 +81,17 @@ router.post('/product/them-product.html', (req, res, next) => {
         });
 
 });
-router.post('/product/:id/sua-product', (req, res, next) => {
+router.post('/product/:id/sua-product.html', (req, res, next) => {
     var id = req.params.id;
+    console.log(req.files);
+    
     Product.findByIdAndUpdate(id, {
         $set: {
-            title: req.body.title,
-            cate: req.body.cateId,
+            title: req.body.name,
+            cate: req.body.cate,
             img: req.files[0].path,
             des: req.body.des,
-            price: req.body.price
+            price: req.body.gia
         }
     }, (err, result) => {
         console.log('success update this product');
@@ -106,22 +109,52 @@ router.get('/product/:id/xoa-product.html', (req, res, next) => {
 
         })
 })
-router.get('/product/:id/sua-product.html', (req, res, next) => {
+router.get('/product/:id/sua-product.html', csrf(),(req, res, next) => {
     Product.findOne({ _id: req.params.id }, (err, product) => {
         Cate.find({})
             .then(cates => {
-                res.render('admin/product/sua', { cate: cates, success_msg: req.flash('success'), errors: req.flash('error'), product: product });
+                res.render('admin/product/sua', {csrfToken: req.csrfToken(), cate: cates, success_msg: req.flash('success'), errors: req.flash('error'), product: product });
 
             })
 
     })
 })
 router.get('/cart/danh-sach.html', (req, res, next) => {
+    Order.find({},(err,results)=>{
+        res.render('admin/cart/danhsach', { data: results, success_msg: req.flash('message') });
 
-    res.render('admin/cart/danhsach', { data: [12] })
+    })
 });
+// Order Process
+router.get('/cart/:id/xoa-cart.html',(req,res,next)=>{
+    Order.findOneAndRemove({_id: req.params.id})
+        .then( result =>{
+            console.log(result);
+            
+            res.redirect('/admin/cart/danh-sach.html');
+
+        })
+})
+router.get('/cart/:id/xem-cart.html',(req,res,next)=>{
+    Order.findOne({_id: req.params.id})
+        .populate({
+            path: 'product'
+        })
+        .then( order =>{
+  res.render('admin/cart/view',{success_msg: req.flash('message'), cart: order })
+        })
+});
+
+router.get('/cart/:id/thanh-toan-cart.html',(req,res,next)=>{
+    Order.findOneAndUpdate({_id: req.params.id}, {$set:{st: 1}})
+        .then( result =>{
+            req.flash('message',' Pay Success');
+            res.redirect(`/admin/cart/${result._id}/xem-cart.html`);
+        })
+})
+// Get User
 router.get('/getuser', function (req, res) {
-    res.json(req.admin);
+    res.json(req.user);
 });
 
 

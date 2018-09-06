@@ -42,13 +42,13 @@
                                            <p><strong>Name: </strong> <%= cart.name %> </p>
                                        </div>
                                        <div>
-                                           <p><strong>Phone: </strong> <%= cart.sdt %></p>
+                                           <p><strong>Phone: </strong> <%= cart.phone %></p>
                                        </div>
                                        <div>
-                                           <p><strong>Email: </strong> <%= cart.email %></p>
+                                           <p><strong>Address: </strong> <%= cart.address %></p>
                                        </div>
                                        <div>
-                                           <p><strong>Tin Nhắn: </strong> <%= cart.msg %></p>
+                                           <p><strong>Tin Nhắn: </strong> Thank you</p>
                                        </div>
                                    </div>
                                     <div class="col-xs-12">
@@ -59,19 +59,19 @@
                                                     <th>ID</th>
                                                     <th>Name</th>
                                                     <th>Hình</th>
-                                                    <th>Số Lượng</th>
+                                                    <th>Category</th>
                                                     <th>Tiền</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <% var id = 0; var total = 0 %>
-                                                <% cart.cart.forEach(function(item){ id ++; total += item.tien;%>
+                                                <% cart.product.forEach(function(item){ id ++; total += item.tien;%>
                                                 <tr>
                                                     <td><%= id%></td>
-                                                    <td><%= item.item.name%></td>
-                                                    <td> <img src="upload/<%= item.item.img%>" width="150px" alt=""></td>
-                                                    <td><%= item.soluong%></td>
-                                                    <td><%= item.tien%>đ</td>
+                                                    <td><%= item.title%></td>
+                                                    <td> <img src="<%= item.img[0] %>" width="150px" alt=""></td>
+                                                    <td><%= item.category %></td>
+                                                    <td><%= item.price %>đ</td>
                                                 </tr>
                                                 <%})%>
                                                 <tr>
@@ -86,7 +86,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="5">
-                                                        <p><strong style="color:red">Tồng Tiền: </strong> <%= total %>đ</p>
+                                                        <p><strong style="color:red">Tồng Tiền: </strong> <%= cart.totalPrice    %>đ</p>
                                                     </td>
                                                 </tr>
                                             </tbody>
