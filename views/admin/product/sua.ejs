@@ -89,7 +89,7 @@
                                                                     <select class="form-control" id="cate" name="cate">
                                                                         <% cate.forEach(function(item){ %>
                                                                             <% if(item._id.toString() == product.cateId.toString() ){ %>
-                                                                                <option value=" typeof <%= item._id %>" selected>
+                                                                                <option value="<%= item._id %>" selected>
                                                                                     <%= item.name%>
                                                                                 </option>
                                                                                 <%} else {%>
