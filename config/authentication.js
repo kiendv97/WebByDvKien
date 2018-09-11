@@ -9,10 +9,12 @@ module.exports = {
     },
   isLoginAdmin : function(req,res,next){
       if(req.isAuthenticated()  && req.user.group === 'admin'){
+          
           next();
 
       } else {
-        res.redirect('/admin/dang-nhap.html');
+          req.flash('message','You are not admin ')
+        res.redirect('/admin/auth/dang-nhap.html');
     }
   }
 }

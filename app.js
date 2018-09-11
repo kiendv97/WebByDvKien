@@ -13,12 +13,15 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var cartRouter = require('./routes/cart');
 var adminRouter = require('./routes/admin/admin');
+var loginAdmin = require('./routes/admin/login');
 var productModel = require('./models/product');
 var userModel = require('./models/user');
+var articleModel = require('./models/article');
 var bodyParser = require('body-parser')
 var flash = require('connect-flash');
 var validator = require('express-validator');
 var multer = require('multer');
+var paginate = require('express-paginate');
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -35,7 +38,7 @@ productModel
 userModel
 require('./config/passport');
 
-mongoose.connect(key.mongoURIOff, {
+mongoose.connect(key.mongoURIMlab, {
   useNewUrlParser: true
 })
   .then(() => {
@@ -74,12 +77,15 @@ app.use(function (req, res, next) {
   res.locals.admin = req.admin || null;
   res.locals.user = req.user || null;
   res.locals.session = req.session;
+  
   next();
 });
+app.use(paginate.middleware(10,50));
 app.use(upload.any());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/cart', cartRouter);
+app.use('/admin/auth',loginAdmin);
 app.use('/admin', adminRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

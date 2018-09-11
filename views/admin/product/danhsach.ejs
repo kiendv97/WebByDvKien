@@ -53,7 +53,7 @@
                                                 <tr>
                                                     <td><%= item._id.toString().substring(item._id.toString().length - 4,item._id.toString().length) %></td>
                                                     <td><%= item.title%></td>
-                                                    <td> <img src="upload/<%= item.img%>" width="100px" alt=""></td>
+                                                    <td> <img src="<%= item.img %>" width="100px" alt=""></td>
 
                                                     <td>
                                                         <a onclick="return check()" href="/admin/product/<%= item._id %>/xoa-product.html">Xoá</a> | 

@@ -1,4 +1,4 @@
-module.exports = function Cart(oldCart) {
+    module.exports = function Cart(oldCart) {
     this.items = oldCart.items || {};
     this.totalQty = oldCart.totalQty || 0;
     this.totalPrice = oldCart.totalPrice || 0;
@@ -77,7 +77,7 @@ module.exports = function Cart(oldCart) {
         console.log(this.totalQty);
 
         this.totalQty -= this.items[id].qty;
-        this.totalPrice -= this.items[id].price * this.items[id].qty;
+        this.totalPrice -= this.items[id].price;
         delete this.items[id];
         console.log(this.totalQty);
     };

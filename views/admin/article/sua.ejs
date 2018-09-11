@@ -1,0 +1,140 @@
+<% include ../playout/header.ejs %>
+<!-- END TOPBAR -->
+<!-- START CONTAINER -->
+<div class="page-container row-fluid container-fluid">
+    <!-- SIDEBAR - START -->
+
+    <% include ../playout/menu.ejs %>
+
+
+    <!--  SIDEBAR - END -->
+    <!-- START CONTENT -->
+    <section id="main-content" class=" ">
+        <section class="wrapper main-wrapper row" style=''>
+            <div class='col-xs-12'>
+                <div class="page-title">
+                    <div class="pull-left">
+                        <h1 class="title">Sửa Article</h1>
+                    </div>
+                    <div class="pull-right hidden-xs">
+
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-xs-12">
+                <section class="box ">
+                    <header class="panel_header">
+                        <h2 class="title pull-left">Thông Tin Article</h2>
+                        <div class="actions panel_actions pull-right">
+                            <a class="box_toggle fa fa-chevron-down"></a>
+                            <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                            <a class="box_close fa fa-times"></a>
+                        </div>
+                    </header>
+                    <div class="content-body">
+                        <div class="row">
+                            <% if(success_msg != ''){ %>
+                            <div class="alert alert-success">
+                                <%= success_msg%>
+                            </div>
+                            <% } %>
+                            <% if(errors.length > 0) { %>
+                            <div class="alert alert-danger">
+                                <% errors.forEach(function(e){ %>
+
+                                <%= e.msg %>
+                                <br />
+                                <%});%>
+
+                            </div>
+                            <% };%>
+                            <form action="/admin/article/<%= article._id %>/sua-article.html" method="post" enctype="multipart/form-data">
+
+                                <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                    <div class="form-group">
+                                        <label class="form-label" for="field-120334">Title</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="text" id="name" value="<%= article.title%>" class="form-control"
+                                                name="title">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                    <div class="form-group">
+                                        <label class="form-label" for="field-120334">Hình</label>
+                                        <span class="desc"></span>
+                                        <br />
+                                        <img src="<%= article.img%>" width="200px">
+                                        <div class="controls">
+                                            <input type="file" id="hinh" value="<%= article.img %>" class="form-control"
+                                                name="img">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                    <div class="form-group">
+                                        <label class="form-label" for="field-120334">Thể Loại</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+
+                                            <select class="form-control" id="cate" name="cate">
+
+
+                                                <option value="fashion">Fashion</option>
+                                                <option value="beauty">Beauty</option>
+                                                <option value="streetstyle">Street Style</option>
+                                                <option value="lifestyle">Life Style</option>
+                                                <option value="diy">DIY & Crafts</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                    <div class="form-group">
+                                        <label class="form-label" for="field-120334">Chi Tiết Sản Phẩm</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <textarea name="des" id="des" class="form-control autogrow" cols="5"><%= article.des%></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                    <div class="form-group">
+                                        <label class="form-label" for="field-120334">Tags</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+
+                                            <input type="text" id="tags" value=" <%= article.tags %>" class="form-control"
+                                                name="tags">
+                                        </div>
+                                    </div>
+                                    <label for="tags" style="font-size: 10px">Thẻ tag cách nhau bằng một dấu phẩy</label>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                    <div class="text-left">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <button type="button" class="btn">Cancel</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </section>
+    <!-- END CONTENT -->
+    <div class="chatapi-windows ">
+    </div>
+    <script>
+
+        document.getElementById('cate').value = '<%= article.cate %>'
+
+    </script>
+    <% include ../playout/footer.ejs %>

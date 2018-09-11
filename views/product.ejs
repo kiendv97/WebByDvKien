@@ -55,9 +55,16 @@
 				</span>
 
 				<div class="topbar-child2">
+					<% if(user){ %>
+					<span class="topbar-email">
+						Welcome
+						<%= user.email %>
+					</span>
+					<% } else { %>
 					<span class="topbar-email">
 						fashe@example.com
 					</span>
+					<%} %>
 
 					<div class="topbar-language rs1-select2">
 						<select class="selection-1" name="time">
@@ -120,78 +127,225 @@
 					</nav>
 				</div>
 
+				<!-- Modal -->
+				<% if(user){ %>
+				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+				 aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="container">
+							<div class="jumbotron">
+								<div class="row">
+									<div class="col-lg-6 mb-5">
+										<h3> Log in</h3>
+										<div class="divider mt-5 mb-5">
+
+										</div>
+
+										<% if(message.length > 0){ %>
+										<div class="alert alert-danger">
+											<%= message %>
+										</div>
+										<%} %>
+										<form action="/users/login" method="post">
+											<div class="form-group">
+												<label for="email">Email address:</label>
+												<input disabled type="email" class="form-control" name="email" id="email">
+											</div>
+											<div class="form-group">
+												<label for="pwd">Password:</label>
+												<input disabled type="password" class="form-control" name="password">
+											</div>
+											<div class="form-group form-check">
+												<label class="form-check-label">
+													<input disabled class="form-check-input" type="checkbox"> Remember me
+												</label>
+											</div>
+
+											<button disabled type="submit" class="btn btn-primary">Submit</button>
+										</form>
+
+										<button data-dismiss="modal" class="header-wrapicon1 dis-block mr-5" type="button" class="btn btn-primary"
+										 data-toggle="modal" data-target="#exampleModalCenter2">
+											<i class="fa fa-registered"> Register ! now </i>
+
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<% } else { %>
+				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+				 aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="container">
+							<div class="jumbotron">
+								<div class="row">
+									<div class="col-lg-6 mb-5">
+										<h3> Log in</h3>
+										<div class="divider mt-5 mb-5">
+
+										</div>
+
+										<% if(message.length > 0){ %>
+										<div class="alert alert-danger">
+											<%= message %>
+										</div>
+										<%} %>
+										<form action="/users/login" method="post">
+											<div class="form-group">
+												<label for="email">Email address:</label>
+												<input type="email" class="form-control" name="email" id="email">
+											</div>
+											<div class="form-group">
+												<label for="pwd">Password:</label>
+												<input type="password" class="form-control" name="password">
+											</div>
+											<div class="form-group form-check">
+												<label class="form-check-label">
+													<input class="form-check-input" type="checkbox"> Remember me
+												</label>
+											</div>
+
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</form>
+
+										<button data-dismiss="modal" class="header-wrapicon1 dis-block mr-5" type="button" class="btn btn-primary"
+										 data-toggle="modal" data-target="#exampleModalCenter2">
+											<i class="fa fa-registered"> Register ! now </i>
+
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<%} %>
+
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+				 aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="container jumbotron">
+							<div class="row">
+								<div class="col-lg-6 ">
+									<h3>
+										Sign Up
+									</h3>
+									<% if(message.length > 0){ %>
+									<div class="alert alert-danger">
+										<%= message %>
+									</div>
+									<%} %>
+									<div class="justify-content-center">
+										<form method="post" action="/users/signup">
+											<div class="form-group">
+												<label for="exampleInputEmail1">Full Name</label>
+												<input type="text" class="form-control" name="name" placeholder="name">
+											</div>
+											<div class="form-group">
+												<label for="exampleInputEmail1">Email address</label>
+												<input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp"
+												 placeholder="Enter email">
+												<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+											</div>
+											<div class="form-group">
+												<label for="exampleInputPassword1">Password</label>
+												<input type="password" class="form-control" id="exampleInputPassword" name="password" placeholder="Password">
+											</div>
+											<div class="form-group">
+												<label for="exampleInputPassword1">Password confirm</label>
+												<input type="password" class="form-control" id="exampleInputPassword1" name="password2" placeholder="Password confirm">
+											</div>
+											<div class="form-group">
+												<label for="exampleInputEmail1">Address</label>
+												<input type="text" class="form-control" name="address" id="exampleInputEmail1" placeholder="Address">
+											</div>
+											<div class="form-group">
+												<label for="exampleInputEmail1">Number</label>
+												<input type="number" class="form-control" name="phone" placeholder="Number">
+											</div>
+											<button type="submit" class="btn btn-primary">Submit</button>
+
+										</form>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<!-- Header Icon -->
 				<div class="header-icons">
-					<a href="#" class="header-wrapicon1 dis-block">
+					<!-- Button trigger modal -->
+					<% if(user){ %>
+					<button onclick="window.location.href='/users/logout'" class="header-wrapicon1 dis-block mr-5" type="button" class="btn btn-primary"
+					 data-toggle="modal" data-target="#exampleModalCenter">
 						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-					</a>
+						Logout
+					</button>
+					<%} else { %>
+					<button class="header-wrapicon1 dis-block mr-5" type="button" class="btn btn-primary" data-toggle="modal"
+					 data-target="#exampleModalCenter">
+						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
 
-					<span class="linedivide1"></span>
+					</button>
+					<% } %>
+
 
 					<div class="header-wrapicon2">
 						<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
 						<span class="header-icons-noti">
 							<% if( session.cart){  %>
-								<%= session.cart.totalQty %>
-								<%} else { %>
-									0
-									<%} %>
+							<%= session.cart.totalQty %>
+							<%} else { %>
+							0
+							<%} %>
 						</span>
 
 						<!-- Header cart noti -->
 						<div class="header-cart header-dropdown">
 							<ul class="header-cart-wrapitem">
+								<% if(session.cart){ %>
+								<% productCart.forEach(function(item){ %>
 								<li class="header-cart-item">
 									<div class="header-cart-item-img">
-										<img src="images/item-cart-01.jpg" alt="IMG">
+										<img src="<%= item.item.img %>" alt="IMG">
 									</div>
 
 									<div class="header-cart-item-txt">
 										<a href="#" class="header-cart-item-name">
-											White Shirt With Pleat Detail Back
+											<%= item.item.title %> x
+											<%= item.qty %>
 										</a>
 
 										<span class="header-cart-item-info">
-											1 x $19.00
+											<%= item.price %>
 										</span>
 									</div>
 								</li>
+								<% }) %>
 
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-02.jpg" alt="IMG">
-									</div>
+								<% } else { %>
+								<h3>
+									No item
+								</h3>
+								<%} %>
 
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Converse All Star Hi Black Canvas
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $39.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-03.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Nixon Porter Leather Watch In Tan
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $17.00
-										</span>
-									</div>
-								</li>
 							</ul>
 
 							<div class="header-cart-total">
-								Total: $75.00
+								<% if(session.cart){ %>
+								TotalPrice:
+								<%= session.cart.totalPrice %>
+								<%} else { %>
+								0 $
+								<%} %>
+
 							</div>
 
 							<div class="header-cart-buttons">
@@ -202,19 +356,13 @@
 									</a>
 								</div>
 
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Check Out
-									</a>
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Header Mobile -->
 		<div class="wrap_header_mobile">
 			<!-- Logo moblie -->
@@ -262,7 +410,7 @@
 
 									<div class="header-cart-item-txt">
 										<a href="#" class="header-cart-item-name">
-											Converse All Star Hi Black Canvas
+
 										</a>
 
 										<span class="header-cart-item-info">
@@ -318,7 +466,7 @@
 				</div>
 			</div>
 		</div>
-	
+
 
 		<!-- Menu Mobile -->
 		<div class="wrap-side-menu">
@@ -332,9 +480,16 @@
 
 					<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
 						<div class="topbar-child2-mobile">
+							<% if(user){ %>
+							<span class="topbar-email">
+								<%= user.email %>
+							</span>
+							<% } else { %>
 							<span class="topbar-email">
 								fashe@example.com
 							</span>
+							<%} %>
+
 
 							<div class="topbar-language rs1-select2">
 								<select class="selection-1" name="time">
@@ -399,21 +554,21 @@
 		</div>
 	</header>
 	<% if(message){ %>
-		<div class="danger alert-danger">
-			<%= message %>
-		</div>
-		<% } %>
+	<div class="danger alert-danger">
+		<%= message %>
+	</div>
+	<% } %>
 	<!-- Title Page -->
-	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(images/heading-pages-02.jpg);">
-		<h2 class="l-text2 t-center">
-			Women
+	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(upload/banner.jpg);">
+		<!-- <h2 class="l-text2 t-center">
+			Thuoc viem hong
 		</h2>
 		<p class="m-text13 t-center">
 			New Arrivals Women Collection 2018
-		</p>
+		</p> -->
 	</section>
 
-	
+
 	<!-- Content page -->
 	<section class="bgwhite p-t-55 p-b-65">
 		<div class="container">
@@ -425,36 +580,15 @@
 							Categories
 						</h4>
 
-						<ul class="p-b-54">
-							<li class="p-t-4">
-								<a href="#" class="s-text13 active1">
-									All
+						<ul>
+							<% cates.forEach(function(cate){ %>
+							<li class="p-b-9">
+								<a href="/product.html.sort=<%=cate.name %>" class="s-text7">
+									<%= cate.name %>
 								</a>
 							</li>
+							<%}) %>
 
-							<li class="p-t-4">
-								<a href="#" class="s-text13">
-									Women
-								</a>
-							</li>
-
-							<li class="p-t-4">
-								<a href="#" class="s-text13">
-									Men
-								</a>
-							</li>
-
-							<li class="p-t-4">
-								<a href="#" class="s-text13">
-									Kids
-								</a>
-							</li>
-
-							<li class="p-t-4">
-								<a href="#" class="s-text13">
-									Accesories
-								</a>
-							</li>
 						</ul>
 
 						<!--  -->
@@ -474,7 +608,7 @@
 							<div class="flex-sb-m flex-w p-t-16">
 								<div class="w-size11">
 									<!-- Button -->
-									<button class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4">
+									<button onclick="filterProduct()" class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4">
 										Filter
 									</button>
 								</div>
@@ -531,12 +665,21 @@
 						</div>
 
 						<div class="search-product pos-relative bo4 of-hidden">
-							<input class="s-text7 size6 p-l-23 p-r-50" type="text" name="search-product" placeholder="Search Products...">
 
-							<button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
-								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
+							<input id="myInput" onkeyup="myFunction()" class="s-text7 size6 p-l-23 p-r-50" type="text" name="searchProduct"
+							 placeholder="Search Products...">
+
+							<button type="submit" class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
+								<i id="iconSearch" class="fs-12 fa fa-search" aria-hidden="true"></i>
 							</button>
+
 						</div>
+
+
+						<div id="resultSearch" class="search-product pos-relative bo4 of-hidden">
+
+						</div>
+
 					</div>
 				</div>
 
@@ -545,29 +688,19 @@
 					<div class="flex-sb-m flex-w p-b-35">
 						<div class="flex-w">
 							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-								<select class="selection-2" name="sorting">
+								<select id="mySelection" class="selection-2" name="sorting">
 									<option>Default Sorting</option>
 									<option>Popularity</option>
-									<option>Price: low to high</option>
-									<option>Price: high to low</option>
+									<option value="rise">Price: low to high</option>
+									<option value="low">Price: high to low</option>
 								</select>
 							</div>
 
-							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-								<select class="selection-2" name="sorting">
-									<option>Price</option>
-									<option>$0.00 - $50.00</option>
-									<option>$50.00 - $100.00</option>
-									<option>$100.00 - $150.00</option>
-									<option>$150.00 - $200.00</option>
-									<option>$200.00+</option>
-
-								</select>
-							</div>
+						
 						</div>
 
 						<span class="s-text8 p-t-5 p-b-5">
-							Showing 1–12 of 16 results
+							Showing 6 of all the products
 						</span>
 					</div>
 
@@ -579,7 +712,7 @@
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
 
-									<img src="<%= product.img[0] %>" alt="IMG-PRODUCT" width="200" height="300" style="background-position:  center center; background-size: cover;">
+									<img src="<%= product.img %>" alt="IMG-PRODUCT" width="200" height="300" style="background-position:  center center; background-size: cover;">
 
 									<div class="block2-overlay trans-0-4">
 										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
@@ -590,7 +723,7 @@
 										<div class="block2-btn-addcart w-size1 trans-0-4">
 											<!-- Button -->
 											<a href="/cart/addtocart/<%= product._id %>" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-											 Add to cart
+												Add to cart
 											</a>
 
 										</div>
@@ -598,8 +731,8 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
-										Herschel supply co 25l + product.description
+									<a href="/product-detail.html.<%= product._id %>" class="block2-name dis-block s-text3 p-b-5">
+										<%= product.title %>
 									</a>
 
 									<span class="block2-price m-text6 p-r-5">
@@ -608,17 +741,45 @@
 								</div>
 							</div>
 						</div>
-						
 
-						
-						
+
+
+
 						<%}) %>
 					</div>
 
 					<!-- Pagination -->
+
 					<div class="pagination flex-m flex-w p-t-26">
-						<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
-						<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
+						<% if (pages > 0) { %>
+						<ul class="pagination text-center ">
+							<% if (current == 1) { %>
+							<li class="disabled item-pagination flex-c-m trans-0-4"><a>First</a></li>
+							<% } else { %>
+							<li class=" item-pagination flex-c-m trans-0-4 "><a href="/product.html.page=1">First</a></li>
+
+							<% } %>
+							<% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+							<% if (i !== 1) { %>
+							<li class="disabled"><a>...</a></li>
+							<% } %>
+							<% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+							<% if (i == current) { %>
+							<li class=" item-pagination flex-c-m trans-0-4 active-pagination"><a>
+									<%= i %></a></li>
+							<% } else { %>
+							<li class=" item-pagination flex-c-m trans-0-4 "><a href="/product.html.page=<%= i %>">
+									<%= i %></a></li>
+							<% } %>
+
+							<% } %>
+							<% if (current == pages) { %>
+							<li class="disabled item-pagination flex-c-m trans-0-4"><a>Last</a></li>
+							<% } else { %>
+							<li class="item-pagination flex-c-m trans-0-4 "><a href="/product.html.page=<%= pages %>">Last</a></li>
+							<% } %>
+						</ul>
+						<% } %>
 					</div>
 				</div>
 			</div>
@@ -636,7 +797,8 @@
 
 				<div>
 					<p class="s-text7 w-size27">
-						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716
+						6879
 					</p>
 
 					<div class="flex-m p-t-30">
@@ -655,29 +817,14 @@
 				</h4>
 
 				<ul>
+					<% cates.forEach(function(cate){ %>
 					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Men
+						<a href="/product.html.sort=<%= cate.name %>" class="s-text7">
+							<%= cate.name %>
 						</a>
 					</li>
+					<%}) %>
 
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Women
-						</a>
-					</li>
-
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Dresses
-						</a>
-					</li>
-
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Sunglasses
-						</a>
-					</li>
 				</ul>
 			</div>
 
@@ -859,7 +1006,25 @@
 	<script type="text/javascript" src="vendor/noui/nouislider.min.js"></script>
 	<script type="text/javascript">
 		/*[ No ui ]
-	    ===========================================================*/
+		===========================================================*/
+		function filterProduct() {
+			$.ajax({
+				type: 'post',
+				url: '/filterProduct',
+				dataType: 'json',
+				data: {
+
+				}
+			})
+		}
+		$.ajax({
+			type: 'post',
+			url: '/filterProduct',
+			dataType: 'json',
+			data: {
+				min: $()
+			}
+		})
 		var filterBar = document.getElementById('filter-bar');
 
 		noUiSlider.create(filterBar, {
@@ -883,6 +1048,62 @@
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
+
+	<script>
+		$('#mySelection').on('change', function () {
+			console.log($(this).children(':selected').val());
+			console.log('helo');
+
+
+			if ($(this).children(':selected').val() == 'rise') {
+				window.location.href = '/product.html.orderbyPrice=rise.page=<%= current%>';
+			}
+			else {
+				window.location.href = '/product.html.orderbyPrice=low.page=<%= current%>';
+			}
+		});
+
+	</script>
+	<script>
+		function myFunction() {
+
+
+			var input = $('#myInput').val();
+
+
+			if (input != '') {
+				console.log(input);
+				$.ajax({
+					type: "post",
+					url: "/searchProduct",
+					data: { input: input },
+					dataType: 'json',
+					encode: true
+				}).done(function (data) {
+					console.log(data);
+					$("#resultSearch").html('');
+					$('#iconSearch').innerHTML = '<i class="fs-12 fa fa-circle-o-notch" aria-hidden="true"></i>';
+					data.forEach(element => {
+						var result = '<div class="divider">__</div>';
+						var result2 = '<div class="search-product pos-relative bo4 of-hidden">' + '<img src="' + element.img[0] + '" width="30" height="40" style="background-position:  center center;margin: auto 5px; background-size: cover;"  >' + '<span>' + element.title + '</span>' + ' </div>';
+
+						$("#resultSearch").append(result + result2);
+
+					});
+
+
+
+
+				})
+			}
+			else {
+				$("#resultSearch").html('');
+			}
+		}
+	</script>
+	<script>
+		$("#modal").modal('show')
+	</script>
 </body>
 
 </html>
