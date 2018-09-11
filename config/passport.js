@@ -46,19 +46,21 @@ passport.use('local.signup', new LocalStratery({
                 return done(null, false, req.flash('message', 'Password confirms  exactly'))
             }
 
-            var newUser = new User({
+            var newUser = {
                 email: email,
                 password: password,
                 fullname: req.body.name,
                 phone: req.body.phone,
                 address: req.body.address
-            });
-            newUser.save(function (err, result) {
-                if (err) return done(err);
+            };
+          new User(newUser) 
+            .save()
+                .then( user=>{
+                    
 
-                return done(null, user);
-
-            });
+                    return done(null, user,req.flash('message','Register success'));
+    
+                })
         })
     }
 ));
