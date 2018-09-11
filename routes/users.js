@@ -9,7 +9,7 @@ router.get('/signup',csrf(), function (req, res, next) {
 });
 
 router.post('/signup', passport.authenticate('local.signup', {
-  successRedirect: '/users/login',
+  successRedirect: '/',
   failureRedirect: '/users/signup',
   failureFlash: true
 }))
