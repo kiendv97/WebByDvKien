@@ -56,7 +56,7 @@ passport.use('local.signup', new LocalStratery({
             newUser.save(function (err, result) {
                 if (err) return done(err);
 
-                return done(null, newUser);
+                return done(null, user);
 
             });
         })
