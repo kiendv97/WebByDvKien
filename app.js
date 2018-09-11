@@ -66,7 +66,7 @@ app.use(session({
   secret: 'session',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false },
+  cookie: { secure: true },
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 app.use(flash());
