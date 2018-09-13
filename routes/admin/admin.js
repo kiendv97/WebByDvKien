@@ -45,8 +45,8 @@ router.get('/article/:id/sua-article.html', async (req, res, next) => {
         errors: req.flash('error'),
         article : artice
 
-    })
-        })
+    });
+        });
 
   
 
