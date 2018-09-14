@@ -1,3 +1,4 @@
-{
+{ "zenMode.hideStatusBar": false,
+    "zenMode.hideActivityBar": false,
     "git.ignoreLimitWarning": true
 }

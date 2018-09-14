@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var logger = require('morgan');
-var key = require('./config/key');
+var {mongoURI} = require('./config/key');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var csrf = require('csurf');
@@ -38,7 +38,7 @@ productModel
 userModel
 require('./config/passport');
 
-mongoose.connect(key.mongoURIMlab, {
+mongoose.connect(mongoURI(), {
   useNewUrlParser: true
 })
   .then(() => {

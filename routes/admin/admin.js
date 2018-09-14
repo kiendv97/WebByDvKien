@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
 
 
 
-//process article 
+//process article     
 router.get('/article/danh-sach.html', (req, res, next) => {
     Article.find({})
         .then(articles => {
